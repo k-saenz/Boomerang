@@ -1,6 +1,6 @@
 ﻿namespace Boomerang.Models
 {
-    public class BasicUser : User
+    public class BasicUser : BoomerangUser
     {
     }
 }
