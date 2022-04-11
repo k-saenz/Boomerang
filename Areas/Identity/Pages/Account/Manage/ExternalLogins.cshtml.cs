@@ -12,12 +12,12 @@ namespace Boomerang.Areas.Identity.Pages.Account.Manage
 {
     public class ExternalLoginsModel : PageModel
     {
-        private readonly UserManager<BoomerangUser> _userManager;
-        private readonly SignInManager<BoomerangUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         public ExternalLoginsModel(
-            UserManager<BoomerangUser> userManager,
-            SignInManager<BoomerangUser> signInManager)
+            UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;

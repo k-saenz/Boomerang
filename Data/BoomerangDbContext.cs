@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Boomerang.Data
 {
-    public class BoomerangContext : IdentityDbContext<BoomerangUser>
+    public class BoomerangDbContext : IdentityDbContext<User>
     {
-        public BoomerangContext(DbContextOptions<BoomerangContext> options)
+        public BoomerangDbContext(DbContextOptions<BoomerangDbContext> options)
             : base(options)
         {
         }

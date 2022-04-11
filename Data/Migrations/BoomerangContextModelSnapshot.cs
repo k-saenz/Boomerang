@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Boomerang.Migrations
 {
-    [DbContext(typeof(BoomerangContext))]
+    [DbContext(typeof(BoomerangDbContext))]
     partial class BoomerangContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace Boomerang.Migrations
                 .HasAnnotation("ProductVersion", "5.0.15")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Boomerang.Models.BoomerangUser", b =>
+            modelBuilder.Entity("Boomerang.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -87,7 +87,7 @@ namespace Boomerang.Migrations
 
                     b.ToTable("AspNetUsers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("BoomerangUser");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("Boomerang.Models.File", b =>
@@ -251,14 +251,14 @@ namespace Boomerang.Migrations
 
             modelBuilder.Entity("Boomerang.Models.BasicUser", b =>
                 {
-                    b.HasBaseType("Boomerang.Models.BoomerangUser");
+                    b.HasBaseType("Boomerang.Models.User");
 
                     b.HasDiscriminator().HasValue("BasicUser");
                 });
 
             modelBuilder.Entity("Boomerang.Models.PremiumUser", b =>
                 {
-                    b.HasBaseType("Boomerang.Models.BoomerangUser");
+                    b.HasBaseType("Boomerang.Models.User");
 
                     b.HasDiscriminator().HasValue("PremiumUser");
                 });
@@ -274,7 +274,7 @@ namespace Boomerang.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Boomerang.Models.BoomerangUser", null)
+                    b.HasOne("Boomerang.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -283,7 +283,7 @@ namespace Boomerang.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Boomerang.Models.BoomerangUser", null)
+                    b.HasOne("Boomerang.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -298,7 +298,7 @@ namespace Boomerang.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Boomerang.Models.BoomerangUser", null)
+                    b.HasOne("Boomerang.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -307,7 +307,7 @@ namespace Boomerang.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Boomerang.Models.BoomerangUser", null)
+                    b.HasOne("Boomerang.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

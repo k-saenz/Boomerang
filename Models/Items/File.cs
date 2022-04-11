@@ -7,7 +7,7 @@ namespace Boomerang.Models
     {
         [Required]
         public int FileId { get; set; }
-        //Stores BoomerangUser ID
+        //Stores User ID
         public int BelongsTo { get; set; }
         public DateTime? CreatedOn { get; set; }
         public byte[] FileByteArr { get; set; }

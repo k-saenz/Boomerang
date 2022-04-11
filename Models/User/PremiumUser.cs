@@ -1,6 +1,6 @@
 ﻿namespace Boomerang.Models
 {
-    public class PremiumUser : BoomerangUser
+    public class PremiumUser : User
     {
     }
 }

@@ -16,7 +16,7 @@ namespace Boomerang.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<BoomerangContext>(options =>
+                services.AddDbContext<BoomerangDbContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("BoomerangContextConnection")));
 

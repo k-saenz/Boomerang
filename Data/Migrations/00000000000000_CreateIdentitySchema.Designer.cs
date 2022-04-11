@@ -9,7 +9,7 @@ using System;
 
 namespace Boomerang.Data.Migrations
 {
-    [DbContext(typeof(BoomerangContext))]
+    [DbContext(typeof(BoomerangDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

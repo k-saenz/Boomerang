@@ -2,7 +2,7 @@
 
 namespace Boomerang.Models
 {
-    public class BoomerangUser : IdentityUser
+    public class User : IdentityUser
     {
 
     }

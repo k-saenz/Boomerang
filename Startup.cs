@@ -13,6 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Discord;
+using AspNet.Security.OAuth.GitHub;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace Boomerang
 {
@@ -28,14 +31,32 @@ namespace Boomerang
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<BoomerangContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<BoomerangUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<BoomerangContext>();
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<BoomerangDbContext>();
             services.AddControllersWithViews();
+
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Google");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    })
+            //    .AddGitHub(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Github");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    })
+            //    .AddDiscord(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Discord");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

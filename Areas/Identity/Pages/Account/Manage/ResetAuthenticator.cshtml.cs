@@ -12,13 +12,13 @@ namespace Boomerang.Areas.Identity.Pages.Account.Manage
 {
     public class ResetAuthenticatorModel : PageModel
     {
-        UserManager<BoomerangUser> _userManager;
-        private readonly SignInManager<BoomerangUser> _signInManager;
+        UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         ILogger<ResetAuthenticatorModel> _logger;
 
         public ResetAuthenticatorModel(
-            UserManager<BoomerangUser> userManager,
-            SignInManager<BoomerangUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             ILogger<ResetAuthenticatorModel> logger)
         {
             _userManager = userManager;
