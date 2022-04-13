@@ -35,6 +35,18 @@ namespace Boomerang
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddAuthentication()
+                .AddDiscord(options =>
+                {
+                    options.ClientId = Configuration.GetValue<string>("Auth:Discord:ClientId");
+                    options.ClientSecret = Configuration.GetValue<string>("Auth:Discord:ClientSecret");
+
+                    options.Scope.Add("email");
+                    options.Scope.Add("identify");
+
+                    options.AuthorizationEndpoint = "https://discord.com/api/oauth2/authorize";
+                }
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
