@@ -1,4 +1,5 @@
 using Boomerang.Data;
+using Boomerang.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNet.Security.OAuth.Discord;
+using AspNet.Security.OAuth.GitHub;
+using Microsoft.AspNetCore.Authentication.Google;
 
 namespace Boomerang
 {
@@ -27,26 +31,32 @@ namespace Boomerang
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<BoomerangDbContext>();
             services.AddControllersWithViews();
-            services.AddAuthentication()
-                .AddDiscord(options =>
-                {
-                    options.ClientId = Configuration.GetValue<string>("Auth:Discord:ClientId");
-                    options.ClientSecret = Configuration.GetValue<string>("Auth:Discord:ClientSecret");
 
-                    options.Scope.Add("email");
-                    options.Scope.Add("identify");
-
-                    options.AuthorizationEndpoint = "https://discord.com/api/oauth2/authorize";
-                }
-            );
+            //services.AddAuthentication()
+            //    .AddGoogle(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Google");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    })
+            //    .AddGitHub(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Github");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    })
+            //    .AddDiscord(options =>
+            //    {
+            //        var auth = Configuration.GetSection("Auth:Discord");
+            //        options.ClientId = auth.GetValue<string>("ClientId");
+            //        options.ClientSecret = auth.GetValue<string>("ClientSecret");
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
