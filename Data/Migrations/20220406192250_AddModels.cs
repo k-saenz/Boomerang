@@ -33,8 +33,7 @@ namespace Boomerang.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Files");
+
 
             migrationBuilder.DropColumn(
                 name: "Discriminator",

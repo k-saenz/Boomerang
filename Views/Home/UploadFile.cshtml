@@ -1,0 +1,11 @@
+﻿@model Boomerang.Views.Home.UploadFileModel
+
+
+<form enctype="multipart/form-data" asp-action="Upload" method="post">
+
+    <label asp-for="FileUpload.FormFile"></label>
+    <input asp-for="FileUpload.FormFile" type="file" name="newFile" />
+
+    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+</form>
+

@@ -92,7 +92,7 @@ namespace Boomerang.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
-            modelBuilder.Entity("Boomerang.Models.File", b =>
+            modelBuilder.Entity("Boomerang.Models.BoomerangFile", b =>
                 {
                     b.Property<int>("FileId")
                         .ValueGeneratedOnAdd()

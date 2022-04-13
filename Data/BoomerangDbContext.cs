@@ -24,7 +24,7 @@ namespace Boomerang.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<File> Files { get; set; }
+        public DbSet<BoomerangFile> Files { get; set; }
 
         public DbSet<PremiumUser> PremiumUsers { get; set; }
         public DbSet<BasicUser> BasicUsers { get; set; }
