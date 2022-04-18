@@ -1,11 +1,25 @@
 ﻿@model Boomerang.Views.Home.UploadFileModel
 
+@{ 
+    ViewData["Title"] = "Boomerang - File Upload";
+}
 
-<form enctype="multipart/form-data" asp-action="Upload" method="post">
+<h1>Upload a new File</h1>
+<p>Max file size: 2MB</p>
 
-    <label asp-for="FileUpload.FormFile"></label>
-    <input asp-for="FileUpload.FormFile" type="file" name="newFile" />
+<form enctype="multipart/form-data" asp-action="UploadFile" method="post">
+    <div class="form-row">
+        <div class="form-group custom-file col-md-6">
+            <input class="custom-file-input" id="uploadFileForm" asp-for="FileUpload.FormFile" type="file" name="newFile" />
+            <label class="custom-file-label" for="uploadFileForm" asp-for="FileUpload.FormFile"></label>
+        </div>
+    </div>
 
-    <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
+    <br />
+    <div class="form-row">
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="Upload" />
+        </div>
+    </div>
 </form>
 

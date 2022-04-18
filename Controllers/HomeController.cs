@@ -33,9 +33,50 @@ namespace Boomerang.Controllers
             return View(files);
         }
 
+        [HttpGet]
+        public IActionResult UploadFile()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> UploadFile(BoomerangFile model)
+        {
+            if (ModelState.IsValid)
+            {
 
+                if (model != null && model.Length > 0)
+                {
+                    var file = model;
 
+                    file.CreatedOn = DateTime.Now;
+                    file.BelongsTo = User.Identity.Name;
+
+                    byte[] content;
+
+                    var readStream = file.OpenReadStream();
+                    var memoryStream = new MemoryStream();
+
+                    await readStream.CopyToAsync(memoryStream);
+                    content = memoryStream.ToArray();
+
+                    file.Content = content;
+
+                    _dbcontext.Files.Add(file);
+                    await _dbcontext.SaveChangesAsync();
+                }
+                else
+                {
+                    ModelState.AddModelError("File", "Upload a valid file");
+                }
+
+                return RedirectToPage("./UploadSuccessful");
+            }
+            else
+            {
+                return View(ViewData["error"] = "something went wrong");
+            }
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

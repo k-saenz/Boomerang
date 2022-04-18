@@ -43,7 +43,7 @@ namespace Boomerang.Views.Home
                 ModelState.AddModelError("File", "The file is too large");
             }
 
-            return Page();
+            return RedirectToPage("./UploadSuccessful");
         }
     }
 
