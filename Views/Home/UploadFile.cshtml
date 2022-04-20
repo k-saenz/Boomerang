@@ -1,6 +1,6 @@
-﻿@model Boomerang.Views.Home.UploadFileModel
+﻿@model BoomerangFile
 
-@{ 
+@{
     ViewData["Title"] = "Boomerang - File Upload";
 }
 
@@ -8,10 +8,11 @@
 <p>Max file size: 2MB</p>
 
 <form enctype="multipart/form-data" asp-action="UploadFile" method="post">
+    @Html.AntiForgeryToken()
     <div class="form-row">
         <div class="form-group custom-file col-md-6">
-            <input class="custom-file-input" id="uploadFileForm" asp-for="FileUpload.FormFile" type="file" name="newFile" />
-            <label class="custom-file-label" for="uploadFileForm" asp-for="FileUpload.FormFile"></label>
+            <input class="custom-file-input" id="uploadFileForm" type="file" name="newFile" asp-for="FileData" />
+            <label class="custom-file-label" for="uploadFileForm"></label>
         </div>
     </div>
 
