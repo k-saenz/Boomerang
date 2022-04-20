@@ -36,30 +36,33 @@ namespace Boomerang.Controllers
         [HttpGet]
         public IActionResult UploadFile()
         {
-            return View();
+            return View(new BoomerangFile());
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(BoomerangFile model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UploadFile(BoomerangFile file)
         {
             if (ModelState.IsValid)
             {
 
-                if (model != null && model.Length > 0)
+                if (file != null && file.FileData.Length > 0)
                 {
-                    var file = model;
 
-                    file.CreatedOn = DateTime.Now;
-                    file.BelongsTo = User.Identity.Name;
-                    file.LastModifiedOn = DateTime.Now;
+                    //file.CreatedOn = DateTime.Now;
+                    //file.BelongsTo = User.Identity.Name;
 
-                    byte[] content;
+                    //byte[] content;
 
-                    var readStream = file.OpenReadStream();
-                    var memoryStream = new MemoryStream();
+                    //var readStream = file.OpenReadStream();
+                    //var memoryStream = new MemoryStream();
 
-                    await readStream.CopyToAsync(memoryStream);
-                    content = memoryStream.ToArray();
+                    //await readStream.CopyToAsync(memoryStream);
+                    //content = memoryStream.ToArray();
+
+                    //file.Content = content;
+
+                    byte[] content = GetByteArrayFromFile(file.FileData);
 
                     file.Content = content;
 
@@ -83,6 +86,15 @@ namespace Boomerang.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        private byte[] GetByteArrayFromFile(IFormFile file)
+        {
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

@@ -8,50 +8,28 @@ using System.Threading.Tasks;
 
 namespace Boomerang.Models
 {
-    public class BoomerangFile : IFormFile
+    public class BoomerangFile
     {
         [Key]
         [Required]
         public int FileId { get; set; }
         public string Name { get; set; }
-        public string FileName { get; set; }
         //Stores User ID
         public string BelongsTo { get; set; }
         public DateTime? CreatedOn { get; set; }
         public byte[] Content { get; set; }
-        public string ContentType { get; set; }
-        public long Length { get; }
-        public DateTime? LastModifiedOn { get; set; }
-        [NotMapped]
-        public IHeaderDictionary Headers { get; set; }
-
-        //Non implemented Properties
-        public string ContentDisposition => throw new NotImplementedException();
+        
+        public FormFile FileData { get; set; }
 
         public BoomerangFile() { }
 
-        public BoomerangFile(int fileId, string belongsTo, DateTime? createdOn, byte[] content, string fileType)
+        public BoomerangFile(int fileId, string belongsTo, DateTime? createdOn, byte[] content, FormFile data)
         {
             FileId = fileId;
             BelongsTo = belongsTo;
             CreatedOn = createdOn;
             Content = content;
-            ContentType = fileType;
-        }
-
-        public Stream OpenReadStream()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(Stream target)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task CopyToAsync(Stream target, CancellationToken cancellationToken = default)
-        {
-            throw new NotImplementedException();
+            FileData = data;
         }
     }
 
