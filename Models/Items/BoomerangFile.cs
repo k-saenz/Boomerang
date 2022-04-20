@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Boomerang.Models.Items;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,12 +19,12 @@ namespace Boomerang.Models
         public string BelongsTo { get; set; }
         public DateTime? CreatedOn { get; set; }
         public byte[] Content { get; set; }
-        
-        public FormFile FileData { get; set; }
+
+        public FileData FileData { get; set; }
 
         public BoomerangFile() { }
 
-        public BoomerangFile(int fileId, string belongsTo, DateTime? createdOn, byte[] content, FormFile data)
+        public BoomerangFile(int fileId, string belongsTo, DateTime? createdOn, byte[] content, FileData data)
         {
             FileId = fileId;
             BelongsTo = belongsTo;

@@ -32,14 +32,8 @@ namespace Boomerang.Migrations
                     b.Property<byte[]>("Content")
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ContentType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("FileName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +41,34 @@ namespace Boomerang.Migrations
                     b.HasKey("FileId");
 
                     b.ToTable("Files");
+                });
+
+            modelBuilder.Entity("Boomerang.Models.Items.FileData", b =>
+                {
+                    b.Property<string>("FileDataId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("BoomerangFileId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ContentType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Length")
+                        .HasColumnType("BIGINT");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FileDataId");
+
+                    b.HasIndex("BoomerangFileId")
+                        .IsUnique();
+
+                    b.ToTable("FileData");
                 });
 
             modelBuilder.Entity("Boomerang.Models.User", b =>
@@ -269,6 +291,17 @@ namespace Boomerang.Migrations
                     b.HasDiscriminator().HasValue("PremiumUser");
                 });
 
+            modelBuilder.Entity("Boomerang.Models.Items.FileData", b =>
+                {
+                    b.HasOne("Boomerang.Models.BoomerangFile", "File")
+                        .WithOne("FileData")
+                        .HasForeignKey("Boomerang.Models.Items.FileData", "BoomerangFileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("File");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -318,6 +351,11 @@ namespace Boomerang.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Boomerang.Models.BoomerangFile", b =>
+                {
+                    b.Navigation("FileData");
                 });
 #pragma warning restore 612, 618
         }
