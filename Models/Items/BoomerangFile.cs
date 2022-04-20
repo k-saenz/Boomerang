@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,10 +21,12 @@ namespace Boomerang.Models
         public byte[] Content { get; set; }
         public string ContentType { get; set; }
         public long Length { get; }
+        public DateTime? LastModifiedOn { get; set; }
+        [NotMapped]
+        public IHeaderDictionary Headers { get; set; }
 
+        //Non implemented Properties
         public string ContentDisposition => throw new NotImplementedException();
-
-        public IHeaderDictionary Headers => throw new NotImplementedException();
 
         public BoomerangFile() { }
 

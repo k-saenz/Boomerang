@@ -4,14 +4,16 @@ using Boomerang.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Boomerang.Migrations
+namespace Boomerang.Data.Migrations
 {
     [DbContext(typeof(BoomerangDbContext))]
-    partial class BoomerangContextModelSnapshot : ModelSnapshot
+    [Migration("20220419231853_FormFileImplementedMigration")]
+    partial class FormFileImplementedMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +42,6 @@ namespace Boomerang.Migrations
 
                     b.Property<string>("FileName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");

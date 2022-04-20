@@ -51,6 +51,7 @@ namespace Boomerang.Controllers
 
                     file.CreatedOn = DateTime.Now;
                     file.BelongsTo = User.Identity.Name;
+                    file.LastModifiedOn = DateTime.Now;
 
                     byte[] content;
 
@@ -70,7 +71,7 @@ namespace Boomerang.Controllers
                     ModelState.AddModelError("File", "Upload a valid file");
                 }
 
-                return RedirectToPage("./UploadSuccessful");
+                return RedirectToPage("/UploadSuccessful");
             }
             else
             {

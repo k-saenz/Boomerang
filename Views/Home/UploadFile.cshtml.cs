@@ -32,7 +32,7 @@ namespace Boomerang.Views.Home
                     BelongsTo = User.Identity.Name,
                     CreatedOn = DateTime.Now,
                     Content = memoryStream.ToArray(),
-                    FileType = FileUpload.FormFile.ContentType
+                    ContentType = FileUpload.FormFile.ContentType
                 };
 
                 _dbContext.Files.Add(file);
