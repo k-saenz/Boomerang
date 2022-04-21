@@ -16,8 +16,7 @@ namespace Boomerang.Models.Items
 
         //Properties
         [Key]
-        [Required]
-        public string FileDataId { get; set; }
+        public int FileDataId { get; set; }
 
         public int BoomerangFileId { get; set; }
         public BoomerangFile File { get; set; }
@@ -25,46 +24,46 @@ namespace Boomerang.Models.Items
         public string ContentType
         {
             get { return _file.ContentType; }
-            set { this.ContentType = value; }
+            set { }
         }
 
         [NotMapped]
         public string ContentDisposition
         {
             get { return _file.ContentDisposition; }
-            set { this.ContentDisposition = value; }
+            set { }
         }
 
         [NotMapped]
         public IHeaderDictionary Headers
         {
             get { return _file.Headers; }
-            set { this.Headers = value; }
+            set { }
         }
 
         [Column(TypeName = "BIGINT")]
         public long Length
         {
             get { return _file.Length; }
-            set { this.Length = value; }
+            set { }
         }
 
         public string Name
         {
             get { return _file.Name; }
-            set { this.Name = value; }
+            set { }
         }
 
         public string FileName
         {
             get { return _file.FileName; }
-            set { this.FileName = value; }
+            set { }
         }
 
         //Constructors
         public FileData() { }
 
-        public FileData(string fileDataId, BoomerangFile file, string contentType, string contentDisposition, IHeaderDictionary headers, long length, string name, string fileName)
+        public FileData(int fileDataId, BoomerangFile file, string contentType, string contentDisposition, IHeaderDictionary headers, long length, string name, string fileName)
         {
             FileDataId = fileDataId;
             File = file;
@@ -75,6 +74,12 @@ namespace Boomerang.Models.Items
             Name = name;
             FileName = fileName;
 
+        }
+
+        //Adapter
+        public FileData(IFormFile iform)
+        {
+            _file = (FormFile) iform;
         }
 
         //Methods

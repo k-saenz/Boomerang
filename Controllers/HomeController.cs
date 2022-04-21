@@ -1,5 +1,7 @@
 ﻿using Boomerang.Data;
 using Boomerang.Models;
+using Boomerang.Models.Items;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -34,6 +36,7 @@ namespace Boomerang.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult UploadFile()
         {
             return View(new BoomerangFile());
@@ -41,12 +44,14 @@ namespace Boomerang.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UploadFile(BoomerangFile file)
+        [Authorize]
+        public async Task<IActionResult> UploadFile(IFormFile newFile)
         {
+
             if (ModelState.IsValid)
             {
 
-                if (file != null && file.FileData.Length > 0)
+                if (newFile != null && newFile.Length > 0)
                 {
 
                     //file.CreatedOn = DateTime.Now;
@@ -62,7 +67,18 @@ namespace Boomerang.Controllers
 
                     //file.Content = content;
 
-                    byte[] content = GetByteArrayFromFile(file.FileData);
+                    var data = new FileData(newFile);
+
+                    var file = new BoomerangFile
+                    {
+                        BelongsTo = User.Identity.Name,
+                        FileData = data,
+                        CreatedOn = DateTime.Now,
+                    };
+
+
+
+                    byte[] content = GetByteArrayFromFile(newFile);
 
                     file.Content = content;
 
