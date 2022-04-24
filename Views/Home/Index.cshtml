@@ -3,15 +3,9 @@
     ViewData["Title"] = "Boomerang - Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-
-@foreach (dynamic file in Model)
+@foreach (var file in Model)
 {
-<div class="col-xl-3 col-md-6 mb-4">
+<div class="col-xl-10 col-md-10 mb-4">
     <div class="card border-left-primary shadow h-100 py-2">
         <div class="card-body">
             <div class="row no-gutters align-items-center">
@@ -19,10 +13,19 @@
                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                         File
                     </div>
+                    <div class="text-xs font-weight-bold text-body text-uppercase mb-1">
+                        Uploaded: @file.CreatedOn
+                    </div>
                     <div class="h5 mb-0 font-weight-bold text-gray-800">@file.FileName</div>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    
+                    <form asp-action="Download" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="@file.FileId" />
+                        <i class="fas fa-file-download fa-2x text-gray-300">
+                            <input type="submit" name="downloadFile" value="Download @file.FileName" />
+                        </i>
+                    </form>
                 </div>
             </div>
         </div>

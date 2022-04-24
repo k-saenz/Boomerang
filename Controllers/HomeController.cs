@@ -41,6 +41,7 @@ namespace Boomerang.Controllers
                     fd => fd.BoomerangFileId,
                     (file, filedata) => new FileDataFromJoin
                     {
+                        FileId = file.FileId,
                         CreatedOn = file.CreatedOn,
                         Content = file.Content,
                         ContentType = filedata.ContentType,
@@ -99,12 +100,34 @@ namespace Boomerang.Controllers
             return RedirectToPage("/Index");
         }
 
+        [HttpPost]
+        public FileContentResult Download(int id)
+        {
+            var file = _dbcontext.Files
+                .Where(f => f.FileId == id)
+                .First();
+            var filedata = _dbcontext.FileData
+                .Where(d => d.BoomerangFileId == id)
+                .Select(d => d.ContentType)
+                .First();
+
+            return File(file.Content, filedata, file.Name);
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+
+            return RedirectToAction("/Index");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        //Util methods
         private byte[] GetByteArrayFromFile(IFormFile file)
         {
             using (var ms = new MemoryStream())
@@ -116,6 +139,7 @@ namespace Boomerang.Controllers
 
         public class FileDataFromJoin
         {
+            public int FileId { get; set; }
             public DateTime? CreatedOn { get; set; }
             public string ContentType { get; set; }
             public byte[] Content { get; set; }
