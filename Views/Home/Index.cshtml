@@ -22,9 +22,17 @@
                     
                     <form asp-action="Download" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="@file.FileId" />
-                        <i class="fas fa-file-download fa-2x text-gray-300">
-                            <input type="submit" name="downloadFile" value="Download @file.FileName" />
-                        </i>
+                        <button class="btn" type="submit" name="downloadFile" value="Download @file.FileName">
+                            <i class="fas fa-file-download fa-2x text-gray-500"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-auto">
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" name="id" value="@file.FileId" />
+                        <button class="btn" type="submit" name="deleteFile" value="Delete @file.FileName">
+                            <i class="fas fa-trash fa-2x text-danger"></i>
+                        </button>
                     </form>
                 </div>
             </div>

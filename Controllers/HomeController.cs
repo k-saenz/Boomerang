@@ -97,10 +97,11 @@ namespace Boomerang.Controllers
 
         public IActionResult UploadSuccessful()
         {
-            return RedirectToPage("/Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [Authorize]
         public FileContentResult Download(int id)
         {
             var file = _dbcontext.Files
@@ -114,11 +115,17 @@ namespace Boomerang.Controllers
             return File(file.Content, filedata, file.Name);
         }
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Delete(int id)
         {
-
-            return RedirectToAction("/Index");
+            var fileToDelete = _dbcontext.Files
+                .Where(f => f.FileId == id)
+                .First();
+            _dbcontext.Files.Remove(fileToDelete);
+            await _dbcontext.SaveChangesAsync();
+            _logger.LogInformation(id + "was deleted");
+            return RedirectToAction("Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
