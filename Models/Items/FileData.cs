@@ -16,6 +16,7 @@ namespace Boomerang.Models.Items
 
         //Properties
         [Key]
+        [Required]
         public int FileDataId { get; set; }
 
         public int BoomerangFileId { get; set; }

@@ -45,8 +45,10 @@ namespace Boomerang.Migrations
 
             modelBuilder.Entity("Boomerang.Models.Items.FileData", b =>
                 {
-                    b.Property<string>("FileDataId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("FileDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BoomerangFileId")
                         .HasColumnType("int");

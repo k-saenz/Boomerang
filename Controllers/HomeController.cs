@@ -4,10 +4,12 @@ using Boomerang.Models.Items;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,11 +30,25 @@ namespace Boomerang.Controllers
         public IActionResult Index()
         {
             string userId = User.Identity.Name;
-            List<BoomerangFile> files = _dbcontext.Files
+            var files = _dbcontext.Files
                 .Where(f => f.BelongsTo == userId)
                 .ToList();
 
-            return View(files);
+            var data = _dbcontext.Files
+                .Join(
+                    _dbcontext.FileData,
+                    f => f.FileId,
+                    fd => fd.BoomerangFileId,
+                    (file, filedata) => new FileDataFromJoin
+                    {
+                        CreatedOn = file.CreatedOn,
+                        Content = file.Content,
+                        ContentType = filedata.ContentType,
+                        FileName = filedata.FileName,
+                    }
+                ).ToList();
+
+            return View(data);
         }
 
         [HttpGet]
@@ -53,20 +69,6 @@ namespace Boomerang.Controllers
 
                 if (newFile != null && newFile.Length > 0)
                 {
-
-                    //file.CreatedOn = DateTime.Now;
-                    //file.BelongsTo = User.Identity.Name;
-
-                    //byte[] content;
-
-                    //var readStream = file.OpenReadStream();
-                    //var memoryStream = new MemoryStream();
-
-                    //await readStream.CopyToAsync(memoryStream);
-                    //content = memoryStream.ToArray();
-
-                    //file.Content = content;
-
                     var data = new FileData(newFile);
 
                     var file = new BoomerangFile
@@ -76,26 +78,25 @@ namespace Boomerang.Controllers
                         CreatedOn = DateTime.Now,
                     };
 
-
-
                     byte[] content = GetByteArrayFromFile(newFile);
 
                     file.Content = content;
 
                     _dbcontext.Files.Add(file);
                     await _dbcontext.SaveChangesAsync();
+                    return RedirectToPage("/UploadSuccessful");
                 }
                 else
                 {
                     ModelState.AddModelError("File", "Upload a valid file");
                 }
+            }
+            return View(ViewData["error"] = "something went wrong");
+        }
 
-                return RedirectToPage("/UploadSuccessful");
-            }
-            else
-            {
-                return View(ViewData["error"] = "something went wrong");
-            }
+        public IActionResult UploadSuccessful()
+        {
+            return RedirectToPage("/Index");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -112,5 +113,14 @@ namespace Boomerang.Controllers
                 return ms.ToArray();
             }
         }
+
+        public class FileDataFromJoin
+        {
+            public DateTime? CreatedOn { get; set; }
+            public string ContentType { get; set; }
+            public byte[] Content { get; set; }
+            public string FileName { get; set; }
+        }
+
     }
 }

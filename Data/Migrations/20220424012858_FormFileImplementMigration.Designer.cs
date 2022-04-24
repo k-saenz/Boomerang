@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Boomerang.Data.Migrations
 {
     [DbContext(typeof(BoomerangDbContext))]
-    [Migration("20220420232406_FormFileImplementMigration")]
+    [Migration("20220424012858_FormFileImplementMigration")]
     partial class FormFileImplementMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,8 +47,10 @@ namespace Boomerang.Data.Migrations
 
             modelBuilder.Entity("Boomerang.Models.Items.FileData", b =>
                 {
-                    b.Property<string>("FileDataId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("FileDataId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BoomerangFileId")
                         .HasColumnType("int");

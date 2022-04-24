@@ -34,7 +34,8 @@ namespace Boomerang.Data.Migrations
                 name: "FileData",
                 columns: table => new
                 {
-                    FileDataId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FileDataId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BoomerangFileId = table.Column<int>(type: "int", nullable: false),
                     ContentType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Length = table.Column<long>(type: "BIGINT", nullable: false),
