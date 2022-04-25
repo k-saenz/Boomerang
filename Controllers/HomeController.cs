@@ -85,7 +85,7 @@ namespace Boomerang.Controllers
 
                     _dbcontext.Files.Add(file);
                     await _dbcontext.SaveChangesAsync();
-                    return RedirectToPage("/UploadSuccessful");
+                    return RedirectToAction("Index", ViewData["uploadMessage"] = "Upload Successful!");
                 }
                 else
                 {
@@ -93,11 +93,6 @@ namespace Boomerang.Controllers
                 }
             }
             return View(ViewData["error"] = "something went wrong");
-        }
-
-        public IActionResult UploadSuccessful()
-        {
-            return RedirectToAction("Index");
         }
 
         [HttpPost]

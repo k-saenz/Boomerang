@@ -59,30 +59,10 @@
                         <h6 class="collapse-header">New Upload:</h6>
 
                         <a class="collapse-item" asp-action="UploadFile">File</a>
-                        <a class="collapse-item" href="cards.html">Note</a>
 
                         <h6 class="collapse-header">Manage Files:</h6>
-                        <a class="collapse-item" href="buttons.html">My Uploads</a>
+                        <a class="collapse-item" asp-action="Index">My Uploads</a>
                         
-                    </div>
-                </div>
-            </li>
-
-            <!-- Sidebar Item -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                   aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                     data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
                     </div>
                 </div>
             </li>
@@ -135,7 +115,7 @@
                                     <div>
                                         <div class="small text-gray-500">@DateTime.Now</div>
                                         @{ 
-                                            //get some messages or alerts from DB
+                                            //TODO: get some messages or alerts from DB
                                         }
                                         Lorem Ipsum
                                     </div>
@@ -149,8 +129,6 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <partial name="_LoginPartial" />
-
-
                         </li>
 
                     </ul>
