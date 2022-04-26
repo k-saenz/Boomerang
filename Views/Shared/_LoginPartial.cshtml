@@ -10,26 +10,30 @@
     </a>
     <!-- Dropdown - User Information -->
 
+<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+     aria-labelledby="userDropdown">
 
-    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-         aria-labelledby="userDropdown">
 
-
-        <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Profile">
-            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-            Profile
-        </a>
-        <a class="dropdown-item" href="#">
-            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-            Settings
-        </a>
-        <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-            Logout
+    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Profile">
+        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+        Profile
+    </a>
+    @if (User.IsInRole("Premium"))
+    {
+        <a class="dropdown-item" asp-controller="Premium" asp-action="Upgrade">
+            <i class="fas fa-crown fa-sm fa-fw mr-2 text-gray-400"></i>
+            Upgrade Account
         </a>
 
-    </div>
+    }
+
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+        Logout
+    </a>
+
+</div>
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

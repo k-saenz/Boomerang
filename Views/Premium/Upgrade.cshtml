@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Boomerang - Home Page";
+}
+
+<h1>Upgrade Your Existing Account</h1>
+
+<p class="alert alert-success alert-dismissible" role="alert">@ViewData["success"]</p>
+
+
+<form action="/" method="post">
+    <input type="hidden" name="userId" value="@User.Identity.Name" />
+
+    <button type="submit" class="btn btn-primary" asp-controller="Premium" asp-action="Upgrade">
+        Upgrade
+    </button>
+
+</form>

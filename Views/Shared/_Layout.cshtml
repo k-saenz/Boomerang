@@ -34,7 +34,7 @@
             <hr class="sidebar-divider my-0">
 
             <li class="nav-item">
-                <a class="nav-link" asp-action="Index">
+                <a class="nav-link" asp-controller="Home" asp-action="Index">
                     <i class="fas fa-fw"></i>
                     <span>Dashboard</span>
                 </a>
@@ -58,10 +58,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">New Upload:</h6>
 
-                        <a class="collapse-item" asp-action="UploadFile">File</a>
+                        <a class="collapse-item" asp-controller="Home" asp-action="UploadFile">File</a>
 
                         <h6 class="collapse-header">Manage Files:</h6>
-                        <a class="collapse-item" asp-action="Index">My Uploads</a>
+                        <a class="collapse-item" asp-controller="Home" asp-action="Index">My Uploads</a>
                         
                     </div>
                 </div>

@@ -35,6 +35,7 @@ namespace Boomerang
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BoomerangDbContext>();
             services.AddControllersWithViews();
 
