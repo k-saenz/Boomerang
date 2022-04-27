@@ -32,7 +32,7 @@ namespace Boomerang.Controllers
             string userId = User.Identity.Name;
             List<FileDataFromJoin> data = new List<FileDataFromJoin>();
 
-            if (userId == "")
+            if (userId != null)
             {
                 var files = _dbcontext.Files
                     .Where(f => f.BelongsTo == userId)
