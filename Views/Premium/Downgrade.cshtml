@@ -1,0 +1,15 @@
+﻿<h1>Back to Basics</h1>
+
+<form asp-controller="Premium" asp-action="Downgrade" method="post">
+    <input type="hidden" name="userId" value="@User.Identity.Name" />
+
+    <h6 class="text-danger">Are you sure you want to cancel your subscription?</h6>
+    <br/>
+    <button type="submit" class="btn btn-danger">
+        Yes, Downgrade my account
+    </button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">
+        No, Take me back
+    </a>
+
+</form>

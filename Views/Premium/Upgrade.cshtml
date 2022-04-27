@@ -7,10 +7,10 @@
 <p class="alert alert-success alert-dismissible" role="alert">@ViewData["success"]</p>
 
 
-<form action="/" method="post">
+<form asp-controller="Premium" asp-action="Upgrade" method="post">
     <input type="hidden" name="userId" value="@User.Identity.Name" />
 
-    <button type="submit" class="btn btn-primary" asp-controller="Premium" asp-action="Upgrade">
+    <button type="submit" class="btn btn-primary">
         Upgrade
     </button>
 

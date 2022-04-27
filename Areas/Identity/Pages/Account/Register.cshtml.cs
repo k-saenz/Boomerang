@@ -86,7 +86,7 @@ namespace Boomerang.Areas.Identity.Pages.Account
                     var defaultRole = _roleManager.FindByNameAsync("Basic").Result;
                     if (defaultRole != null)
                     {
-                        await _userManager.AddToRoleAsync(user, defaultRole.Id);
+                        await _userManager.AddToRoleAsync(user, defaultRole.Name);
                     }
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

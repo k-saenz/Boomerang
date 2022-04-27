@@ -18,7 +18,7 @@
         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
         Profile
     </a>
-    @if (User.IsInRole("Premium"))
+    @if (!User.IsInRole("Premium"))
     {
         <a class="dropdown-item" asp-controller="Premium" asp-action="Upgrade">
             <i class="fas fa-crown fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -71,11 +71,11 @@ else
 
 
     <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">
-        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+        <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
         Register
     </a>
     <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">
-        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+        <i class="fas fa-door-open fa-sm fa-fw mr-2 text-gray-400"></i>
         Login
     </a>
 

@@ -101,13 +101,14 @@ namespace Boomerang.Controllers
         {
             var file = _dbcontext.Files
                 .Where(f => f.FileId == id)
+                .Select(c => c.Content)
                 .First();
-            var filedata = _dbcontext.FileData
+            var data = _dbcontext.FileData
                 .Where(d => d.BoomerangFileId == id)
-                .Select(d => d.ContentType)
+                .Select(d => new { d.ContentType, d.FileName })
                 .First();
 
-            return File(file.Content, filedata, file.Name);
+            return File(file, data.ContentType, data.FileName);
         }
 
         [HttpPost]
