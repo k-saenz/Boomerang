@@ -30,26 +30,31 @@ namespace Boomerang.Controllers
         public IActionResult Index()
         {
             string userId = User.Identity.Name;
-            var files = _dbcontext.Files
-                .Where(f => f.BelongsTo == userId)
-                .ToList();
+            List<FileDataFromJoin> data = new List<FileDataFromJoin>();
 
-            var data = _dbcontext.Files
-                .Join(
-                    _dbcontext.FileData,
-                    f => f.FileId,
-                    fd => fd.BoomerangFileId,
-                    (file, filedata) => new FileDataFromJoin
-                    {
-                        FileId = file.FileId,
-                        CreatedOn = file.CreatedOn,
-                        Content = file.Content,
-                        ContentType = filedata.ContentType,
-                        FileName = filedata.FileName,
-                    }
-                ).ToList();
+            if (userId == "")
+            {
+                var files = _dbcontext.Files
+                    .Where(f => f.BelongsTo == userId)
+                    .ToList();
 
+                data = _dbcontext.Files
+                    .Join(
+                        _dbcontext.FileData,
+                        f => f.FileId,
+                        fd => fd.BoomerangFileId,
+                        (file, filedata) => new FileDataFromJoin
+                        {
+                            FileId = file.FileId,
+                            CreatedOn = file.CreatedOn,
+                            Content = file.Content,
+                            ContentType = filedata.ContentType,
+                            FileName = filedata.FileName,
+                        }
+                    ).ToList();
+            }
             return View(data);
+
         }
 
         [HttpGet]

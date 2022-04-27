@@ -87,6 +87,29 @@
                 </li>
             }
 
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#admin"
+                       aria-expanded="true" aria-controls="admin">
+                        <i class="fas fa-fw fa-glasses"></i>
+                        <span>Admin</span>
+                    </a>
+                    <div id="admin" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Admin:</h6>
+                            <a class="collapse-item" asp-controller="Admin" asp-action="Index">Dashboard</a>
+
+                            <h6 class="collapse-header">User Actions:</h6>
+                            <a class="collapse-item" asp-controller="Admin" asp-action="Create">Create</a>
+                            <a class="collapse-item" asp-controller="Admin" asp-action="Edit">Edit</a>
+                            <a class="collapse-item" asp-controller="Admin" asp-action="Delete">Delete</a>
+
+                        </div>
+                    </div>
+                </li>
+            }
+
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Toggle Sidebar -->
