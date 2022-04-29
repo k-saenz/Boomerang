@@ -31,9 +31,6 @@ namespace Boomerang.Data
 
         public DbSet<BoomerangFile> Files { get; set; }
         public DbSet<FileData> FileData { get; set; }
-
-        public DbSet<PremiumUser> PremiumUsers { get; set; }
-        public DbSet<BasicUser> BasicUsers { get; set; }
         
         
     }
